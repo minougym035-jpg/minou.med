@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Minou Med</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Bienvenue sur Minou Med</h1>
+    <button id="modeToggle">🌙 Mode Nuit</button>
+  </header>
+
+  <main>
+    <section class="table-section">
+      <h2>Calcul de la moyenne</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Matière</th>
+            <th>S1</th>
+            <th>S2</th>
+            <th>TD/TP</th>
+            <th>Coefficient</th>
+          </tr>
+        </thead>
+        <tbody id="subjectsTable">
+          <tr>
+            <td>Embryologie</td>
+            <td><input type="number" class="s1"></td>
+            <td>-</td>
+            <td><input type="number" class="td"></td>
+            <td>1</td>
+          </tr>
+          <tr>
+            <td>Biochimie</td>
+            <td><input type="number" class="s1"></td>
+            <td><input type="number" class="s2"></td>
+            <td>-</td>
+            <td>2</td>
+          </tr>
+        </tbody>
+      </table>
+      <button id="calcBtn">Calculer</button>
+      <p id="result"></p>
+      <button id="pdfBtn">📥 Télécharger en PDF</button>
+    </section>
+
+    <section class="courses">
+      <h2>Cours et Fichiers</h2>
+      <p><button id="adminBtn">Se connecter en tant qu'Admin</button></p>
+      <div id="uploadSection" style="display:none;">
+        <input type="file" id="fileUpload">
+        <button>Uploader</button>
+      </div>
+    </section>
+  </main>
+
+  <body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f8f8f8;
+  color: #222;
+}
+
+header {
+  background: #3a7bd5;
+  color: white;
+  padding: 15px;
+  text-align: center;
+}
+
+button {
+  padding: 6px 12px;
+  margin: 5px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+table {
+  width: 90%;
+  margin: 20px auto;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
+}
+
+.dark {
+  background: #121212;
+  color: #eee;
+}
+
+.dark header {
+  background: #222;
+// 🌙/☀️ Mode nuit
+document.getElementById("modeToggle").onclick = () => {
+  document.body.classList.toggle("dark");
+};
+
+// 📊 Calcul de la moyenne
+document.getElementById("calcBtn").onclick = () => {
+  let s1 = document.querySelector("tr:nth-child(1) .s1").value;
+  let td = document.querySelector("tr:nth-child(1) .td").value;
+  let moyenneEmbryo = ((s1 * 2) + Number(td)) / 3;
+
+  let s1b = document.querySelector("tr:nth-child(2) .s1").value;
+  let s2b = document.querySelector("tr:nth-child(2) .s2").value;
+  let moyenneBio = (Number(s1b) + Number(s2b)) / 2;
+
+  let result = (moyenneEmbryo * 1 + moyenneBio * 2) / 16 * 16;
+  document.getElementById("result").innerText = "Moyenne générale : " + result.toFixed(2);
+  alert("✅ Résultat : " + result.toFixed(2));
+};
+
+// 🔑 Admin accès
+document.getElementById("adminBtn").onclick = () => {
+  let code = prompt("Entrez le code secret :");
+  if (code === "aziz1968") {
+    alert("✅ Connecté avec succès comme administrateur – Bienvenue Nesraoui Amine 👨‍⚕️");
+    document.getElementById("uploadSection").style.display = "block";
+  } else {
+    alert("❌ Code incorrect !");
+  }
+};
